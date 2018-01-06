@@ -5,6 +5,9 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
+#Asset Pack Folders
+/Assets/Galaxy Robots Pack 01
+
 # Visual Studio 2015 cache directory
 /.vs/
 
@@ -32,3 +35,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Galaxy Robots Pack 01.meta
