@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class FPSMovementScript : MonoBehaviour
 {
@@ -6,64 +7,100 @@ public class FPSMovementScript : MonoBehaviour
     [Header("Aim Properties")]
     [SerializeField] Transform pivotBase;
     [SerializeField] Transform turretHead;
-    [SerializeField] Transform[] bulletSpawn;
-    private Vector2 mouseAxis;
-
+    private Transform lookAtObj = null;
+    private Vector3 hitPoint;
 
     [Header("Firing Properties")]
-    public GameObject bulletPrefab;
-    public int ammoSize;
-    public float fireForce;
-    public float fireRate;
+    [HideInInspector] public bool canFire = false;
+    [SerializeField] Transform[] bulletSpawn;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] int ammoSize;
+    [SerializeField] float fireForce;
+    [SerializeField] float fireRate;
 
+    private WeaponPoolerScript weaponPoolerScript;
     private float lastFire;
 
     [Header("Raycast Properties")]
-    [SerializeField] LayerMask invertGround;
-    private RaycastHit hit;
+    [SerializeField] LayerMask invertCharacterMask;
 
     //Component References
     private Camera cam;
-    private WeaponPoolerScript weaponPoolerScript;
 
 
     private void Start()
     {
         cam = Camera.main;
         weaponPoolerScript = new WeaponPoolerScript(bulletPrefab, ammoSize);
-
-        invertGround = ~invertGround;
+        invertCharacterMask = ~invertCharacterMask;
     }
 
     private void Update()
     {
-        AimTurret();
+        OnClick();
+        AimTowardsPos();
         FireGun();
     }
 
-    private void AimTurret()
+    private void OnClick()
     {
-
-        //Aiming the Turret Head / Pivot Base
-        Ray vRay = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        Physics.Raycast(vRay, out hit, 1000.0f);
-
-        Vector3 pivotLookPos = hit.point;
-        pivotLookPos.y = pivotBase.position.y;
-
-        pivotBase.LookAt(pivotLookPos); //move the circle
-        turretHead.LookAt(hit.point); //aim the head up and down
-
-        foreach (Transform spawn in bulletSpawn)
+        if (Input.GetMouseButtonDown(0))
         {
-            spawn.LookAt(hit.point);
+            GetLookAtPos();
+            StartFiring();
         }
     }
+
+    private void StartFiring()
+    {
+        canFire = true;
+    }
+
+    private void AimTowardsPos()
+    {
+        //Do not run if you haven't clicked anything
+        if (!lookAtObj)
+            return;
+
+        Vector3 pivotBaseLookAt = Vector3.zero;
+        Vector3 turretHeadLookAt = Vector3.zero;
+
+        if (lookAtObj.tag == "Ground")
+        {
+            pivotBaseLookAt = hitPoint;
+            turretHeadLookAt = hitPoint;
+        }
+        else
+        {
+            pivotBaseLookAt = lookAtObj.position + lookAtObj.forward * 2.5f;
+            turretHeadLookAt = lookAtObj.position;
+            turretHeadLookAt.y = 1.5f; //TODO: Look at actual mid point of enemy
+        }
+
+        pivotBaseLookAt.y = pivotBase.position.y; //Corrects pivot base so it doesn't tilt
+        pivotBase.LookAt(pivotBaseLookAt);
+
+        turretHead.LookAt(turretHeadLookAt);
+
+
+
+    }
+
+    private void GetLookAtPos()
+    {
+        Ray camScreenRay = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(camScreenRay, out hit, 500, invertCharacterMask))
+        {
+            lookAtObj = hit.transform.root.transform;
+            hitPoint = hit.point;
+            EnemyManagerScript.Instance.selectedEnemy = hit.transform.gameObject;
+        }
+    }
+
     private void FireGun()
     {
-        if (Input.GetMouseButton(0) && Time.time > lastFire + fireRate)
+        if (canFire && Time.time > lastFire + fireRate)
         {
             lastFire = Time.time;
 
@@ -81,12 +118,4 @@ public class FPSMovementScript : MonoBehaviour
 
         }
     }
-
-    //Debug Commands
-    private void OnDrawGizmos()
-    {
-        //Gizmos.DrawRay(bulletSpawn[0].transform.position, bulletSpawn[0].transform.forward * 100.0f);
-        //   Gizmos.DrawSphere(hit.point, 5.0f);
-    }
-
 }

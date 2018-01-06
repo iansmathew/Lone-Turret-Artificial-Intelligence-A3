@@ -12,6 +12,7 @@ public class EnemyManagerScript : MonoBehaviour
     private int currentMinionCount = 0;
 
     //Shared Variables
+    [HideInInspector] public GameObject selectedEnemy = null;
     [HideInInspector] public List<Transform> activeEnemies;
 
     //Instance Variables

@@ -22,6 +22,7 @@ public class MinionScript : MonoBehaviour
 
     [Header("On Select Properties")]
     Outline outlineScript;
+    bool mouseIsOver = false;
 
     //Component References
     protected Animator anim;
@@ -32,6 +33,7 @@ public class MinionScript : MonoBehaviour
     private State currentState;
     public AttackState attackState;
     public WalkState walkState;
+    public DeathState deathState;
 
     //Unity Functions
     private void Awake()
@@ -44,6 +46,7 @@ public class MinionScript : MonoBehaviour
 
         walkState = new WalkState(this);
         attackState = new AttackState(this);
+        deathState = new DeathState(this);
 
         outlineScript = GetComponentInChildren<Outline>();
     }
@@ -58,26 +61,23 @@ public class MinionScript : MonoBehaviour
     private void Update()
     {
         currentState.Tick();
-
-        //if (Input.GetMouseButton(0))
-        //{
-        //    Debug.Log("Clicked");
-        //}
-        //else
-        //{
-        //    outlineScript.color = 0;
-        //}
+        if (mouseIsOver)
+            outlineScript.color = 1;
+        else if (EnemyManagerScript.Instance.selectedEnemy == this.gameObject)
+            outlineScript.color = 2;
+        else
+            outlineScript.color = 0;
 
     }
 
     private void OnMouseEnter()
     {
-        outlineScript.color = 1;
+        mouseIsOver = true;
     }
 
     private void OnMouseExit()
     {
-        outlineScript.color = 0;
+        mouseIsOver = false;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -87,6 +87,7 @@ public class MinionScript : MonoBehaviour
     }
 
     /* --- AI Functions --- */
+    #region
     public void SetState(State state)
     {
         if (currentState != null)
@@ -103,12 +104,14 @@ public class MinionScript : MonoBehaviour
     {
         anim.SetTrigger("Take Damage");
         health -= 5.0f;
-
         if (health <= 0)
-            Destroy(gameObject);
+        {
+            SetState(deathState);
+        }
     }
 
     //Walk State Functions
+    #region
     public void EnterWalk()
     {
         agent.isStopped = false;
@@ -116,7 +119,6 @@ public class MinionScript : MonoBehaviour
         anim.SetFloat("Forward", 1.0f);
         agent.SetDestination(targetPos);
     }
-
     public void ExitWalk()
     {
         anim.SetFloat("Forward", 0.0f);
@@ -134,9 +136,10 @@ public class MinionScript : MonoBehaviour
             }
         }
     }
+    #endregion
 
     //Attack State Functions
-
+    #region
     public void EnterAttack()
     {
         anim.SetBool("Both Rapid Attack", true);
@@ -169,6 +172,16 @@ public class MinionScript : MonoBehaviour
             lastFire = Time.time;
         }
     }
+    #endregion
 
+    //Death State Functions
+    #region
+    public void EnterDeath()
+    {
+        anim.SetTrigger("Die");
+        Destroy(gameObject);
+    }
+    #endregion
 
+    #endregion
 }

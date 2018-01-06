@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4652600742619452}
   - component: {fileID: 114007826368567876}
+  - component: {fileID: 65196250819643098}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,8 +59,8 @@ GameObject:
   m_Name: Base Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1581046360334378
 GameObject:
@@ -92,8 +93,8 @@ GameObject:
   m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4212524128737724
 Transform:
@@ -320,6 +321,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914676337046398}
   m_Mesh: {fileID: 4300006, guid: 879c026bdf33d624ca4dc55e909b0a34, type: 3}
+--- !u!65 &65196250819643098
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053004293356090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12, y: 5, z: 12}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &114007826368567876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,12 +346,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivotBase: {fileID: 4595639665090624}
   turretHead: {fileID: 4620071532790914}
+  canFire: 0
   bulletSpawn: []
   bulletPrefab: {fileID: 1599650776464524, guid: f256f59c6e4b82d4d857fbeffff146b5,
     type: 2}
   ammoSize: 100
   fireForce: 9000
   fireRate: 0.1
-  invertGround:
+  invertCharacterMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
