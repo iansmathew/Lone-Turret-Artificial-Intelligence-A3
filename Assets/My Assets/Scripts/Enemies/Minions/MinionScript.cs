@@ -1,25 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using cakeslice;
 
 public class MinionScript : MonoBehaviour
 {
 
     protected static GameObject player;
 
-    //Walk State Variables
-    [Header("Minion Variables")]
+    [Header("Minion Properties")]
     public float health = 100.0f;
 
-    [Header("Walk State Variables")]
+    [Header("Walk State Properties")]
     [SerializeField] float speed = 3.5f;
     private Vector3 targetPos;
 
-    //Attack State Variables
-    [Header("Attack State Variables")]
+    [Header("Attack State Properties")]
     [SerializeField] float fireRate = 0.5f;
     [SerializeField] Transform[] bulletSpawns;
     [SerializeField] GameObject bulletPrefab;
     private float lastFire;
+
+    [Header("On Select Properties")]
+    Outline outlineScript;
 
     //Component References
     protected Animator anim;
@@ -42,17 +44,40 @@ public class MinionScript : MonoBehaviour
 
         walkState = new WalkState(this);
         attackState = new AttackState(this);
+
+        outlineScript = GetComponentInChildren<Outline>();
     }
 
     private void Start()
     {
         agent.speed = speed;
         SetState(new WalkState(this));
+        outlineScript.eraseRenderer = false;
     }
 
     private void Update()
     {
         currentState.Tick();
+
+        //if (Input.GetMouseButton(0))
+        //{
+        //    Debug.Log("Clicked");
+        //}
+        //else
+        //{
+        //    outlineScript.color = 0;
+        //}
+
+    }
+
+    private void OnMouseEnter()
+    {
+        outlineScript.color = 1;
+    }
+
+    private void OnMouseExit()
+    {
+        outlineScript.color = 0;
     }
 
     private void OnCollisionEnter(Collision collision)
