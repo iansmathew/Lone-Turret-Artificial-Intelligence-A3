@@ -2,13 +2,14 @@
 using UnityEngine.AI;
 using cakeslice;
 
-public class MinionScript : MonoBehaviour
+public class CaptainScript : MonoBehaviour
 {
 
     protected static GameObject player;
 
-    [Header("Minion Properties")]
+    [Header("Captain Properties")]
     public float health = 100.0f;
+    [SerializeField] Transform[] squadPositions;
 
     [Header("Walk State Properties")]
     [SerializeField] float speed = 3.5f;
@@ -18,6 +19,7 @@ public class MinionScript : MonoBehaviour
     [SerializeField] float fireRate = 0.5f;
     [SerializeField] Transform[] bulletSpawns;
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] float switchToWalkDelay = 7.0f;
     private float lastFire;
 
     [Header("On Select Properties")]
@@ -56,6 +58,8 @@ public class MinionScript : MonoBehaviour
         agent.speed = speed;
         SetState(new WalkState(this));
         outlineScript.eraseRenderer = false;
+
+        //TODO: Spawn minions and set positions
     }
 
     private void Update()
@@ -86,6 +90,17 @@ public class MinionScript : MonoBehaviour
             TakeHit(5);
         else if (collision.gameObject.tag == "pRocket")
             TakeHit(50);
+    }
+
+    /// <summary>
+    ///  Debug Draw Commands
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        foreach (Transform position in squadPositions)
+        {
+            Gizmos.DrawSphere(position.position, 1.0f);
+        }
     }
 
     /* --- AI Functions --- */
@@ -145,7 +160,7 @@ public class MinionScript : MonoBehaviour
     public void EnterAttack()
     {
         anim.SetBool("Both Rapid Attack", true);
-        Invoke("SwitchToWalk", 4.0f);
+        Invoke("SwitchToWalk", Random.Range(switchToWalkDelay, switchToWalkDelay + 3.0f));
     }
 
     public void ExitAttack()

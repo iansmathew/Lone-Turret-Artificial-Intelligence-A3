@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeathState : State {
 
-    public DeathState(MinionScript minion) : base(minion) { }
+    public DeathState(CaptainScript minion) : base(minion) { }
 
     public override void Tick()
     {

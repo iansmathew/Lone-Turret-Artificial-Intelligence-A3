@@ -4,14 +4,14 @@ using UnityEngine;
 
 public abstract class State
 {
-    protected MinionScript minion;
+    protected CaptainScript minion;
 
     public abstract void Tick();
 
     public virtual void OnStateEnter() { }
     public virtual void OnStateExit() { }
 
-    public State(MinionScript _minion)
+    public State(CaptainScript _minion)
     {
         this.minion = _minion;
     }

@@ -4,8 +4,8 @@ using UnityEngine;
 public class EnemyManagerScript : MonoBehaviour
 {
 
-    [Header("Minion Squad Properties")]
-    [SerializeField] GameObject minionPrefab;
+    [Header("Captain Squad Properties")]
+    [SerializeField] GameObject captainPrefab;
     [SerializeField] Transform[] CoverPointArray;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] int maxMinions;
@@ -45,7 +45,7 @@ public class EnemyManagerScript : MonoBehaviour
         }
 
         Transform spawn = GetRandomSpawn();
-        GameObject enemy = Instantiate(minionPrefab, spawn.position, Quaternion.identity);
+        GameObject enemy = Instantiate(captainPrefab, spawn.position, Quaternion.identity);
         activeEnemies.Add(enemy.GetComponent<Transform>()); //adding enemies
         currentMinionCount++;
     }

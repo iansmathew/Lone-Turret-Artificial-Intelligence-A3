@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class FPSMovementScript : MonoBehaviour
 {
+    //TODO: Add obstacles to game
     [Header("General Properties")]
     [SerializeField] Image healthBar;
     [SerializeField] float health = 100.0f;
@@ -181,6 +182,7 @@ public class FPSMovementScript : MonoBehaviour
         }
     }
 
+    //TODO: Implement second weapon
     private void FireRocket()
     {
         if (canFire && Time.time > lastFire + rocketFireRate)

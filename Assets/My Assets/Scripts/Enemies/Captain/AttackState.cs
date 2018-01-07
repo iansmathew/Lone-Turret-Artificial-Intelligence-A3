@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkState : State {
-
-	public WalkState(MinionScript minion) : base(minion) { }
+public class AttackState : State
+{
+    public AttackState(CaptainScript minion) : base(minion) { }
 
     public override void Tick()
     {
-        minion.CheckIfReachTarget();
+        minion.FireGun();
     }
 
     public override void OnStateEnter()
     {
-        minion.EnterWalk();
+        minion.EnterAttack();
     }
 
     public override void OnStateExit()
     {
-        minion.ExitWalk();
+        minion.ExitAttack();
     }
 }
