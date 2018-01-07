@@ -960,7 +960,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1335549454882498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.02}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4720907908226774}
@@ -1067,7 +1067,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1342378349532122}
-  m_LocalRotation: {x: 0.004149717, y: 0.7155996, z: 0.6984967, w: 0.0015296284}
+  m_LocalRotation: {x: 0.0041497173, y: 0.71559966, z: 0.69849676, w: 0.0015296285}
   m_LocalPosition: {x: 0.96996045, y: 2.377767, z: -0.00000029835854}
   m_LocalScale: {x: 1.0000004, y: 1.0000001, z: 1.0000002}
   m_Children: []
@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1720030919583230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.37388, y: -1.5517526e-16, z: 6.9884725}
+  m_LocalPosition: {x: -24.44759, y: -1.2152427e-16, z: 5.472966}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4795391563179204}
@@ -1442,7 +1442,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1249339362864652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.58, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4720907908226774}
@@ -1712,7 +1712,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748263579281524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.44, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4720907908226774}
@@ -1792,6 +1792,8 @@ MonoBehaviour:
   - {fileID: 4612914611464140}
   - {fileID: 4992771589264512}
   - {fileID: 4059280415726400}
+  minionPrefab: {fileID: 1328111260307140, guid: f6d263b7deebee5458cf8f33d70c9e65,
+    type: 2}
   speed: 5
   fireRate: 0.5
   bulletSpawns:
@@ -1799,6 +1801,8 @@ MonoBehaviour:
   - {fileID: 4481527272304742}
   bulletPrefab: {fileID: 1599650776464524, guid: 9db70ea54f277f54e9243f92a87582c1,
     type: 2}
+  switchToWalkDelay: 7
+  inAttackState: 0
 --- !u!114 &114595459237494884
 MonoBehaviour:
   m_ObjectHideFlags: 1

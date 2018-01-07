@@ -30,7 +30,7 @@ public class EnemyManagerScript : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("SpawnMinion", 0.5f, 3.0f);
+        InvokeRepeating("SpawnMinion", 0.5f, 5.0f);
 
     }
 
@@ -50,7 +50,7 @@ public class EnemyManagerScript : MonoBehaviour
         currentMinionCount++;
     }
 
-    Transform GetRandomSpawn()
+    public Transform GetRandomSpawn()
     {
         int index = Random.Range(0, spawnPoints.Length);
         return spawnPoints[index];

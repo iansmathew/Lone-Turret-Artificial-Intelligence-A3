@@ -10,6 +10,8 @@ public class CaptainScript : MonoBehaviour
     [Header("Captain Properties")]
     public float health = 100.0f;
     [SerializeField] Transform[] squadPositions;
+    [SerializeField] GameObject minionPrefab;
+    [SerializeField] int scoreValue = 10;
 
     [Header("Walk State Properties")]
     [SerializeField] float speed = 3.5f;
@@ -20,6 +22,7 @@ public class CaptainScript : MonoBehaviour
     [SerializeField] Transform[] bulletSpawns;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float switchToWalkDelay = 7.0f;
+    public bool inAttackState = false;
     private float lastFire;
 
     [Header("On Select Properties")]
@@ -59,7 +62,17 @@ public class CaptainScript : MonoBehaviour
         SetState(new WalkState(this));
         outlineScript.eraseRenderer = false;
 
-        //TODO: Spawn minions and set positions
+        SpawnMinions();
+    }
+
+    private void SpawnMinions()
+    {
+        foreach(Transform position in squadPositions)
+        {
+            GameObject minion = Instantiate(minionPrefab, position.position, position.rotation);
+            minion.GetComponent<MinionScript>().SetSquadPosition(position);
+            minion.GetComponent<MinionScript>().SetCaptain(transform);
+        }
     }
 
     private void Update()
@@ -87,7 +100,7 @@ public class CaptainScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "pBullet")
-            TakeHit(5);
+            TakeHit(2.5f);
         else if (collision.gameObject.tag == "pRocket")
             TakeHit(50);
     }
@@ -103,6 +116,10 @@ public class CaptainScript : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        player.GetComponent<FPSMovementScript>().UpdateScore(scoreValue);
+    }
     /* --- AI Functions --- */
     #region
     public void SetState(State state)
@@ -117,7 +134,7 @@ public class CaptainScript : MonoBehaviour
     }
 
     //Shared Functions
-    public void TakeHit(int _damage)
+    public void TakeHit(float _damage)
     {
         anim.SetTrigger("Take Damage");
         health -= _damage;
@@ -161,11 +178,13 @@ public class CaptainScript : MonoBehaviour
     {
         anim.SetBool("Both Rapid Attack", true);
         Invoke("SwitchToWalk", Random.Range(switchToWalkDelay, switchToWalkDelay + 3.0f));
+        inAttackState = true;
     }
 
     public void ExitAttack()
     {
         anim.SetBool("Both Rapid Attack", false);
+        inAttackState = false;
     }
 
     void SwitchToWalk()

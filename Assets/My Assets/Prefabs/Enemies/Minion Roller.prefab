@@ -220,9 +220,9 @@ GameObject:
   - component: {fileID: 4815759120724540}
   - component: {fileID: 95913810035590252}
   - component: {fileID: 195075542375112086}
-  - component: {fileID: 136670298562528698}
   - component: {fileID: 54367774853424210}
   - component: {fileID: 114837628740120646}
+  - component: {fileID: 65074041418140104}
   m_Layer: 0
   m_Name: Minion Roller
   m_TagString: Untagged
@@ -738,7 +738,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328111260307140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.868458, y: -3.0071332e-16, z: 13.542923}
+  m_LocalPosition: {x: 6.482683, y: 5.5602657e-16, z: -25.041208}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4429559604060490}
@@ -920,6 +920,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!65 &65074041418140104
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1328111260307140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3, z: 2}
+  m_Center: {x: 0, y: 1.55, z: 0}
 --- !u!95 &95913810035590252
 Animator:
   serializedVersion: 3
@@ -963,21 +975,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce87bcea315aad4bba62d2df7e2e8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {fileID: 0}
   speed: 6.5
---- !u!136 &136670298562528698
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1328111260307140}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.16
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.11, z: 0}
+  scoreValue: 5
+  fireRate: 0.5
+  bulletSpawns:
+  - {fileID: 4201824947968294}
+  - {fileID: 4885736826759506}
+  bulletPrefab: {fileID: 1599650776464524, guid: 9db70ea54f277f54e9243f92a87582c1,
+    type: 2}
 --- !u!137 &137028432334879830
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

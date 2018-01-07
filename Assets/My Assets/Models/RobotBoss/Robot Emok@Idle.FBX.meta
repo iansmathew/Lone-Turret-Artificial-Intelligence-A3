@@ -1,0 +1,235 @@
+fileFormatVersion: 2
+guid: 0ab56ff7a77100f488114477b14006dd
+timeCreated: 1467711490
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Rig
+    100002: RigLArm1
+    100004: RigLArm1Gizmo
+    100006: RigLArm2
+    100008: RigLArm2Gizmo
+    100010: RigLArmIndex1
+    100012: RigLArmIndex2
+    100014: RigLArmPalm
+    100016: RigLArmPalmGizmo
+    100018: RigLArmPinky1
+    100020: RigLArmPinky2
+    100022: RigLArmThumb1
+    100024: RigLArmThumb2
+    100026: RigPelvis
+    100028: RigPelvisGizmo
+    100030: RigRArm1
+    100032: RigRArm1Gizmo
+    100034: RigRArm2
+    100036: RigRArm2Gizmo
+    100038: RigRArmIndex1
+    100040: RigRArmIndex2
+    100042: RigRArmPalm
+    100044: RigRArmPalmGizmo
+    100046: RigRArmPinky1
+    100048: RigRArmPinky2
+    100050: RigRArmThumb1
+    100052: RigRArmThumb2
+    100054: RigRibcage
+    100056: RigRibcageGizmo
+    100058: RigSpine1
+    100060: RigSpine2
+    100062: RigSpine3
+    100064: Robot Emok
+    100066: //RootNode
+    400000: Rig
+    400002: RigLArm1
+    400004: RigLArm1Gizmo
+    400006: RigLArm2
+    400008: RigLArm2Gizmo
+    400010: RigLArmIndex1
+    400012: RigLArmIndex2
+    400014: RigLArmPalm
+    400016: RigLArmPalmGizmo
+    400018: RigLArmPinky1
+    400020: RigLArmPinky2
+    400022: RigLArmThumb1
+    400024: RigLArmThumb2
+    400026: RigPelvis
+    400028: RigPelvisGizmo
+    400030: RigRArm1
+    400032: RigRArm1Gizmo
+    400034: RigRArm2
+    400036: RigRArm2Gizmo
+    400038: RigRArmIndex1
+    400040: RigRArmIndex2
+    400042: RigRArmPalm
+    400044: RigRArmPalmGizmo
+    400046: RigRArmPinky1
+    400048: RigRArmPinky2
+    400050: RigRArmThumb1
+    400052: RigRArmThumb2
+    400054: RigRibcage
+    400056: RigRibcageGizmo
+    400058: RigSpine1
+    400060: RigSpine2
+    400062: RigSpine3
+    400064: Robot Emok
+    400066: //RootNode
+    4300000: Robot Emok
+    7400000: Idle
+    9500000: //RootNode
+    13700000: Robot Emok
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Rig
+        weight: 1
+      - path: RigLArm1Gizmo
+        weight: 1
+      - path: RigLArm2Gizmo
+        weight: 1
+      - path: RigLArmPalmGizmo
+        weight: 1
+      - path: RigPelvis
+        weight: 1
+      - path: RigPelvis/RigSpine1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm/RigLArmIndex1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm/RigLArmIndex1/RigLArmIndex2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm/RigLArmPinky1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm/RigLArmPinky1/RigLArmPinky2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm/RigLArmThumb1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigLArm1/RigLArm2/RigLArmPalm/RigLArmThumb1/RigLArmThumb2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/RigRArmIndex1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/RigRArmIndex1/RigRArmIndex2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/RigRArmPinky1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/RigRArmPinky1/RigRArmPinky2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/RigRArmThumb1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/RigRArmThumb1/RigRArmThumb2
+        weight: 1
+      - path: RigPelvisGizmo
+        weight: 1
+      - path: RigRArm1Gizmo
+        weight: 1
+      - path: RigRArm2Gizmo
+        weight: 1
+      - path: RigRArmPalmGizmo
+        weight: 1
+      - path: RigRibcageGizmo
+        weight: 1
+      - path: Robot Emok
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

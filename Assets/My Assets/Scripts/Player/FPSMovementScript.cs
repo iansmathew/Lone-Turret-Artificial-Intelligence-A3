@@ -33,15 +33,20 @@ public class FPSMovementScript : MonoBehaviour
     [SerializeField] int rocketAmmoSize;
     [SerializeField] float rocketFireForce;
     [SerializeField] float rocketFireRate;
+    [HideInInspector] public bool canFire = false;
 
     private RocketPoolerScript rocketWeaponPool;
-
-    [HideInInspector] public bool canFire = false;
     private float lastFire;
-
     private int currentWeapon = 0;
 
+    [Header("Score Properties")]
+    [SerializeField] Text scoreText;
+    float score = 0;
 
+    [Header("Game Over Properties")]
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] Text gameOverText;
+    
     //Component References
     private Camera cam;
 
@@ -50,7 +55,7 @@ public class FPSMovementScript : MonoBehaviour
     {
         cam = Camera.main;
         bulletWeaponPool = new WeaponPoolerScript(bulletPrefab, bulletAmmoSize);
-        rocketWeaponPool = new RocketPoolerScript(rocketPrefab, rocketAmmoSize);
+        //rocketWeaponPool = new RocketPoolerScript(rocketPrefab, rocketAmmoSize);
         invertCharacterMask = ~invertCharacterMask;
 
     }
@@ -67,7 +72,7 @@ public class FPSMovementScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            TakeDamage(0.5f);
+            TakeDamage(0.1f);
         }
     }
 
@@ -78,8 +83,8 @@ public class FPSMovementScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             currentWeapon = 0;
-        //else if (Input.GetKeyDown(KeyCode.Alpha2))
-        //    currentWeapon = 1;
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+            currentWeapon = 1;
     }
 
     /// <summary>
@@ -138,7 +143,7 @@ public class FPSMovementScript : MonoBehaviour
         {
             pivotBaseLookAt = lookAtObj.position + lookAtObj.forward * 2.5f;
             turretHeadLookAt = lookAtObj.position;
-            turretHeadLookAt.y = 1.5f; //TODO: Look at actual mid point of enemy
+            //turretHeadLookAt.y = 1.5f; //TODO: Look at actual mid point of enemy
         }
 
         pivotBaseLookAt.y = pivotBase.position.y; //Corrects pivot base so it doesn't tilt
@@ -163,13 +168,15 @@ public class FPSMovementScript : MonoBehaviour
 
     private void FireBullet()
     {
-        if (canFire && Time.time > lastFire + bulletFireRate)
+        if (canFire && Time.time > lastFire)
         {
-            lastFire = Time.time;
+            lastFire = Time.time + bulletFireRate;
 
             for (int i = 0; i < bulletSpawn.Length; i++)
             {
                 GameObject bullet = WeaponPoolerScript.Instance.GetObjectFromPool();
+                if (!bullet)
+                    return;
                 bullet.GetComponent<TrailRenderer>().Clear();
                 bullet.transform.position = bulletSpawn[i].position;
                 bullet.transform.rotation = bulletSpawn[i].rotation;
@@ -185,21 +192,12 @@ public class FPSMovementScript : MonoBehaviour
     //TODO: Implement second weapon
     private void FireRocket()
     {
-        if (canFire && Time.time > lastFire + rocketFireRate)
+        if (canFire && Time.time > lastFire)
         {
-            for (int i = 0; i < bulletSpawn.Length; i++)
-            {
-                GameObject rocket = RocketPoolerScript.Instance.GetObjectFromPool();
-                if (!rocket)
-                    return;
-
-                rocket.transform.position = bulletSpawn[i].position;
-                rocket.transform.rotation = bulletSpawn[i].rotation;
-                Physics.IgnoreCollision(rocket.GetComponent<Collider>(), transform.GetComponent<Collider>());
-
-                rocket.GetComponent<RocketResetScript>().SetArcEnd(hitPoint);
-            }
-
+            lastFire = Time.time + rocketFireRate;
+            GameObject rocket = Instantiate(rocketPrefab, bulletSpawn[1].position, bulletSpawn[1].rotation) as GameObject;
+            Physics.IgnoreCollision(rocket.GetComponent<Collider>(), transform.GetComponent<Collider>());
+            rocket.GetComponent<RocketMovementScript>().SetRocketTarget(lookAtObj.transform);
         }
     }
 
@@ -211,5 +209,19 @@ public class FPSMovementScript : MonoBehaviour
         health -= damage;
         float mappedHealth = CustomFunc.Remap(health, 0, 100, 0, 1);
         healthBar.transform.localScale = new Vector3(mappedHealth, healthBar.transform.localScale.y, 0);
+
+        if (health <= 0)
+        {
+            gameOverPanel.SetActive(true);
+            gameOverText.text = "Defeat..";
+            Destroy(gameObject);
+        }
     }
+
+    public void UpdateScore(int _score)
+    {
+        score += _score;
+        scoreText.text = "Score: " + score.ToString();
+    }
+
 }

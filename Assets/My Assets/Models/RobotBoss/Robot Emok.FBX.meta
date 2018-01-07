@@ -1,0 +1,144 @@
+fileFormatVersion: 2
+guid: 74bf53145b403f247b3d8661fa63361c
+timeCreated: 1467701310
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Rig
+    100004: RigLArm1
+    100006: RigLArm1Gizmo
+    100008: RigLArm2
+    100010: RigLArm2Gizmo
+    100012: RigLArmIndex1
+    100014: RigLArmIndex2
+    100016: RigLArmPalm
+    100018: RigLArmPalmGizmo
+    100020: RigLArmPinky1
+    100022: RigLArmPinky2
+    100024: RigLArmThumb1
+    100026: RigLArmThumb2
+    100028: RigPelvis
+    100030: RigPelvisGizmo
+    100032: RigRArm1
+    100034: RigRArm1Gizmo
+    100036: RigRArm2
+    100038: RigRArm2Gizmo
+    100040: RigRArmIndex1
+    100042: RigRArmIndex2
+    100044: RigRArmPalm
+    100046: RigRArmPalmGizmo
+    100048: RigRArmPinky1
+    100050: RigRArmPinky2
+    100052: RigRArmThumb1
+    100054: RigRArmThumb2
+    100056: RigRibcage
+    100058: RigRibcageGizmo
+    100060: RigSpine1
+    100062: RigSpine2
+    100064: RigSpine3
+    100066: Robot Emok
+    400000: //RootNode
+    400002: Rig
+    400004: RigLArm1
+    400006: RigLArm1Gizmo
+    400008: RigLArm2
+    400010: RigLArm2Gizmo
+    400012: RigLArmIndex1
+    400014: RigLArmIndex2
+    400016: RigLArmPalm
+    400018: RigLArmPalmGizmo
+    400020: RigLArmPinky1
+    400022: RigLArmPinky2
+    400024: RigLArmThumb1
+    400026: RigLArmThumb2
+    400028: RigPelvis
+    400030: RigPelvisGizmo
+    400032: RigRArm1
+    400034: RigRArm1Gizmo
+    400036: RigRArm2
+    400038: RigRArm2Gizmo
+    400040: RigRArmIndex1
+    400042: RigRArmIndex2
+    400044: RigRArmPalm
+    400046: RigRArmPalmGizmo
+    400048: RigRArmPinky1
+    400050: RigRArmPinky2
+    400052: RigRArmThumb1
+    400054: RigRArmThumb2
+    400056: RigRibcage
+    400058: RigRibcageGizmo
+    400060: RigSpine1
+    400062: RigSpine2
+    400064: RigSpine3
+    400066: Robot Emok
+    2300000: //RootNode
+    2300002: Robot Emok
+    3300000: //RootNode
+    3300002: Robot Emok
+    4300000: Robot Emok
+    9500000: //RootNode
+    13700000: Robot Emok
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
