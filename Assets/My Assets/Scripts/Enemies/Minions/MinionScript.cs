@@ -83,7 +83,9 @@ public class MinionScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "pBullet")
-            TakeHit();
+            TakeHit(5);
+        else if (collision.gameObject.tag == "pRocket")
+            TakeHit(50);
     }
 
     /* --- AI Functions --- */
@@ -100,10 +102,10 @@ public class MinionScript : MonoBehaviour
     }
 
     //Shared Functions
-    public void TakeHit()
+    public void TakeHit(int _damage)
     {
         anim.SetTrigger("Take Damage");
-        health -= 5.0f;
+        health -= _damage;
         if (health <= 0)
         {
             SetState(deathState);

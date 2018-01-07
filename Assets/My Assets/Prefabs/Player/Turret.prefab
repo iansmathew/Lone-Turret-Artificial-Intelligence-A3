@@ -28,6 +28,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1072726413845582
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4032847931917570}
+  m_Layer: 0
+  m_Name: Bullet Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1344251573673564
 GameObject:
   m_ObjectHideFlags: 1
@@ -96,6 +111,19 @@ GameObject:
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
+--- !u!4 &4032847931917570
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072726413845582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4620071532790914}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4212524128737724
 Transform:
   m_ObjectHideFlags: 1
@@ -146,7 +174,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.000000046031417, y: 2.6007144, z: 0.5187417}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4032847931917570}
   m_Father: {fileID: 4595639665090624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -157,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1053004293356090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.083}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4212524128737724}
@@ -344,15 +373,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a7cf65996ee91428f538c22d5403eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
   pivotBase: {fileID: 4595639665090624}
   turretHead: {fileID: 4620071532790914}
-  canFire: 0
-  bulletSpawn: []
-  bulletPrefab: {fileID: 1599650776464524, guid: f256f59c6e4b82d4d857fbeffff146b5,
-    type: 2}
-  ammoSize: 100
-  fireForce: 9000
-  fireRate: 0.1
+  bulletSpawn:
+  - {fileID: 4032847931917570}
   invertCharacterMask:
     serializedVersion: 2
     m_Bits: 256
+  bulletPrefab: {fileID: 1599650776464524, guid: f256f59c6e4b82d4d857fbeffff146b5,
+    type: 2}
+  bulletAmmoSize: 50
+  bulletFireForce: 7000
+  bulletFireRate: 0.1
+  rocketPrefab: {fileID: 1409453479842944, guid: f23010c8a15c6ea4a973e97a59e38f03,
+    type: 2}
+  rocketAmmoSize: 10
+  rocketFireForce: 5000
+  rocketFireRate: 5
+  canFire: 0

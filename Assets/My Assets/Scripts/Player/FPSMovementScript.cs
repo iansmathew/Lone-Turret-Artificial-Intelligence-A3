@@ -1,28 +1,45 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSMovementScript : MonoBehaviour
 {
+    [Header("General Properties")]
+    [SerializeField] Image healthBar;
+    [SerializeField] float health = 100.0f;
+
 
     [Header("Aim Properties")]
     [SerializeField] Transform pivotBase;
     [SerializeField] Transform turretHead;
+    [SerializeField] Transform[] bulletSpawn;
     private Transform lookAtObj = null;
     private Vector3 hitPoint;
 
-    [Header("Firing Properties")]
-    [HideInInspector] public bool canFire = false;
-    [SerializeField] Transform[] bulletSpawn;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] int ammoSize;
-    [SerializeField] float fireForce;
-    [SerializeField] float fireRate;
-
-    private WeaponPoolerScript weaponPoolerScript;
-    private float lastFire;
-
     [Header("Raycast Properties")]
     [SerializeField] LayerMask invertCharacterMask;
+
+    [Header("Normal Bullet Properties")]
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] int bulletAmmoSize;
+    [SerializeField] float bulletFireForce;
+    [SerializeField] float bulletFireRate;
+    
+    private WeaponPoolerScript bulletWeaponPool;
+
+    [Header("Rocket Properties")]
+    [SerializeField] GameObject rocketPrefab;
+    [SerializeField] int rocketAmmoSize;
+    [SerializeField] float rocketFireForce;
+    [SerializeField] float rocketFireRate;
+
+    private RocketPoolerScript rocketWeaponPool;
+
+    [HideInInspector] public bool canFire = false;
+    private float lastFire;
+
+    private int currentWeapon = 0;
+
 
     //Component References
     private Camera cam;
@@ -31,8 +48,10 @@ public class FPSMovementScript : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-        weaponPoolerScript = new WeaponPoolerScript(bulletPrefab, ammoSize);
+        bulletWeaponPool = new WeaponPoolerScript(bulletPrefab, bulletAmmoSize);
+        rocketWeaponPool = new RocketPoolerScript(rocketPrefab, rocketAmmoSize);
         invertCharacterMask = ~invertCharacterMask;
+
     }
 
     private void Update()
@@ -40,8 +59,31 @@ public class FPSMovementScript : MonoBehaviour
         OnClick();
         AimTowardsPos();
         FireGun();
+        CheckIfSwitchWeapons();
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            TakeDamage(0.5f);
+        }
+    }
+
+    /// <summary>
+    /// Check if the player switches weapons
+    /// </summary>
+    private void CheckIfSwitchWeapons()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            currentWeapon = 0;
+        //else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //    currentWeapon = 1;
+    }
+
+    /// <summary>
+    /// Locks on to enemy and starts firing
+    /// </summary>
     private void OnClick()
     {
         if (Input.GetMouseButtonDown(0))
@@ -51,11 +93,32 @@ public class FPSMovementScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggles firing bool
+    /// </summary>
     private void StartFiring()
     {
         canFire = true;
     }
 
+    /// <summary>
+    /// Gets the enemy that player clicked on and sets it to lookAtObj
+    /// </summary>
+    private void GetLookAtPos()
+    {
+        Ray camScreenRay = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(camScreenRay, out hit, 500, invertCharacterMask))
+        {
+            lookAtObj = hit.transform.root.transform;
+            hitPoint = hit.point;
+            EnemyManagerScript.Instance.selectedEnemy = hit.transform.gameObject;
+        }
+    }
+
+    /// <summary>
+    /// Aims the turret towatds lookAtObj
+    /// </summary>
     private void AimTowardsPos()
     {
         //Do not run if you haven't clicked anything
@@ -86,21 +149,20 @@ public class FPSMovementScript : MonoBehaviour
 
     }
 
-    private void GetLookAtPos()
-    {
-        Ray camScreenRay = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(camScreenRay, out hit, 500, invertCharacterMask))
-        {
-            lookAtObj = hit.transform.root.transform;
-            hitPoint = hit.point;
-            EnemyManagerScript.Instance.selectedEnemy = hit.transform.gameObject;
-        }
-    }
-
+    /// <summary>
+    /// Fires the current gun
+    /// </summary>
     private void FireGun()
     {
-        if (canFire && Time.time > lastFire + fireRate)
+        if (currentWeapon == 0)
+            FireBullet();
+        else if (currentWeapon == 1)
+            FireRocket();
+    }
+
+    private void FireBullet()
+    {
+        if (canFire && Time.time > lastFire + bulletFireRate)
         {
             lastFire = Time.time;
 
@@ -112,10 +174,40 @@ public class FPSMovementScript : MonoBehaviour
                 bullet.transform.rotation = bulletSpawn[i].rotation;
                 Physics.IgnoreCollision(bullet.GetComponent<Collider>(), transform.GetComponent<Collider>());
 
-                bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn[i].forward * fireForce);
+                bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn[i].forward * bulletFireForce);
             }
 
 
         }
+    }
+
+    private void FireRocket()
+    {
+        if (canFire && Time.time > lastFire + rocketFireRate)
+        {
+            for (int i = 0; i < bulletSpawn.Length; i++)
+            {
+                GameObject rocket = RocketPoolerScript.Instance.GetObjectFromPool();
+                if (!rocket)
+                    return;
+
+                rocket.transform.position = bulletSpawn[i].position;
+                rocket.transform.rotation = bulletSpawn[i].rotation;
+                Physics.IgnoreCollision(rocket.GetComponent<Collider>(), transform.GetComponent<Collider>());
+
+                rocket.GetComponent<RocketResetScript>().SetArcEnd(hitPoint);
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// Decreased health by damage and scales healthbar
+    /// </summary>
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        float mappedHealth = CustomFunc.Remap(health, 0, 100, 0, 1);
+        healthBar.transform.localScale = new Vector3(mappedHealth, healthBar.transform.localScale.y, 0);
     }
 }
