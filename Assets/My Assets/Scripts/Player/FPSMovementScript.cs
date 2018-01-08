@@ -49,7 +49,7 @@ public class FPSMovementScript : MonoBehaviour
     
     //Component References
     private Camera cam;
-
+    private float lastHit;
 
     private void Start()
     {
@@ -65,7 +65,7 @@ public class FPSMovementScript : MonoBehaviour
         OnClick();
         AimTowardsPos();
         FireGun();
-        CheckIfSwitchWeapons();
+        //CheckIfSwitchWeapons();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -155,6 +155,15 @@ public class FPSMovementScript : MonoBehaviour
 
     }
 
+    public void GetHitFromBoss()
+    {
+        if (Time.time > lastHit)
+        {
+            lastHit = Time.time + 5.0f;
+            TakeDamage(2.0f);
+        }
+    }
+
     /// <summary>
     /// Fires the current gun
     /// </summary>
@@ -212,8 +221,8 @@ public class FPSMovementScript : MonoBehaviour
 
         if (health <= 0)
         {
-            gameOverPanel.SetActive(true);
             gameOverText.text = "Defeat..";
+            gameOverPanel.SetActive(true);
             Destroy(gameObject);
         }
     }
@@ -222,6 +231,13 @@ public class FPSMovementScript : MonoBehaviour
     {
         score += _score;
         scoreText.text = "Score: " + score.ToString();
+
+        if (score >= 300)
+        {
+            gameOverText.text = "Victory!!";
+            gameOverPanel.SetActive(true);
+            Destroy(gameObject);
+        }
     }
 
 }

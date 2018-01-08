@@ -35,7 +35,7 @@ public class CaptainScript : MonoBehaviour
     protected NavMeshAgent agent;
 
     //State Variables
-    private State currentState;
+    private State<CaptainScript> currentState;
     public AttackState attackState;
     public WalkState walkState;
     public DeathState deathState;
@@ -59,7 +59,7 @@ public class CaptainScript : MonoBehaviour
     private void Start()
     {
         agent.speed = speed;
-        SetState(new WalkState(this));
+        SetState(walkState);
         outlineScript.eraseRenderer = false;
 
         SpawnMinions();
@@ -119,10 +119,12 @@ public class CaptainScript : MonoBehaviour
     private void OnDestroy()
     {
         player.GetComponent<FPSMovementScript>().UpdateScore(scoreValue);
+        EnemyManagerScript.Instance.deadCaptain++;
+        EnemyManagerScript.Instance.currentMinionCount--;
     }
     /* --- AI Functions --- */
     #region
-    public void SetState(State state)
+    public void SetState(State<CaptainScript> state)
     {
         if (currentState != null)
             currentState.OnStateExit();

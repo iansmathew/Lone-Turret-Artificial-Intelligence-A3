@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State
+public abstract class State<T>
 {
-    protected CaptainScript minion;
+    protected T minion;
 
     public abstract void Tick();
 
     public virtual void OnStateEnter() { }
     public virtual void OnStateExit() { }
 
-    public State(CaptainScript _minion)
+    public State(T _minion)
     {
         this.minion = _minion;
     }

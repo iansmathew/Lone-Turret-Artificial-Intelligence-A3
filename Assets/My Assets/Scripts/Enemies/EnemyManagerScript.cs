@@ -9,7 +9,10 @@ public class EnemyManagerScript : MonoBehaviour
     [SerializeField] Transform[] CoverPointArray;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] int maxMinions;
-    private int currentMinionCount = 0;
+    private int totalSpawnedMinions;
+    [HideInInspector] public int currentMinionCount = 0;
+    [HideInInspector] public int deadCaptain = 0;
+    bool spawnedBoss = false;
 
     //Shared Variables
     [HideInInspector] public GameObject selectedEnemy = null;
@@ -34,19 +37,32 @@ public class EnemyManagerScript : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (!spawnedBoss && deadCaptain >= 6)
+        {
+            spawnedBoss = true;
+            GetComponent<SpawnBossScript>().SpawnBoss();
+        }
+    }
+
     //Manager Behaviours
     void SpawnMinion()
     {
         //Stop Spawning Minions
-        if (currentMinionCount >= maxMinions)
+        if (totalSpawnedMinions >= maxMinions)
         {
             CancelInvoke("SpawnMinion");
             return;
         }
 
+        if (currentMinionCount > maxMinions / 2)
+            return;
+
         Transform spawn = GetRandomSpawn();
         GameObject enemy = Instantiate(captainPrefab, spawn.position, Quaternion.identity);
         activeEnemies.Add(enemy.GetComponent<Transform>()); //adding enemies
+        totalSpawnedMinions++;
         currentMinionCount++;
     }
 

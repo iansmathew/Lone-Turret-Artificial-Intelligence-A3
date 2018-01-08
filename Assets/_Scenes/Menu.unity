@@ -1156,7 +1156,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Click to select enemy and auto-fire
 
-    Hold right mouse button and move to rotate view'
+    Hold right mouse button and drag to rotate view'
 --- !u!222 &961127450
 CanvasRenderer:
   m_ObjectHideFlags: 0

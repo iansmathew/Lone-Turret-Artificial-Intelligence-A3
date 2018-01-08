@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : State<CaptainScript>
-{
-    public AttackState(CaptainScript minion) : base(minion) { }
+public class BossAttackState : State<BossScript> {
+
+    public BossAttackState(BossScript minion) : base(minion) { }
 
     public override void Tick()
     {
-        minion.FireGun();
+        minion.Attack();
+        //minion.CheckIfNeedDefense();
     }
 
     public override void OnStateEnter()

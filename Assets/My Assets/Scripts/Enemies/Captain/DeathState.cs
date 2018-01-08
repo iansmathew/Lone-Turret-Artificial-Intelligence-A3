@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathState : State {
+public class DeathState : State<CaptainScript> {
 
     public DeathState(CaptainScript minion) : base(minion) { }
 

@@ -10,15 +10,14 @@ public class SpawnBossScript : MonoBehaviour {
 
 	void Start()
     {
-        StartCoroutine(SpawnBoss());
+        //StartCoroutine(SpawnBoss());
     }
 
-    IEnumerator SpawnBoss()
+    public void SpawnBoss()
     {
-        yield return new WaitForSeconds(spawnBossDelay);
-        Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation);
-
-        yield break;
+        //yield return new WaitForSeconds(spawnBossDelay);
+        GameObject boss = Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation);
+        //yield break;
     }
 
 }

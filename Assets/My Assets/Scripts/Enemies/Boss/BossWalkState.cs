@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkState : State<CaptainScript> {
+public class BossWalkState : State<BossScript> {
 
-	public WalkState(CaptainScript minion) : base(minion) { }
+    public BossWalkState(BossScript minion) : base(minion) { }
 
     public override void Tick()
     {
         minion.CheckIfReachTarget();
+        minion.CheckIfNeedDefense();
     }
 
     public override void OnStateEnter()
@@ -20,4 +21,5 @@ public class WalkState : State<CaptainScript> {
     {
         minion.ExitWalk();
     }
+
 }
